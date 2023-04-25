@@ -1,0 +1,7 @@
+{
+  "name": "codex-todo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
