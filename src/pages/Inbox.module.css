@@ -1,0 +1,12 @@
+.div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+.div h1{
+    font-size: 100px;
+
+}
