@@ -20,7 +20,7 @@ import {
   IonRow,
   IonCol,
 } from "@ionic/react";
-import { format, parseISO } from "date-fns";
+import { format, parse, parseISO } from "date-fns";
 import { useState } from "react";
 import styles from "./Notes.module.css";
 import { Card } from "../components/Card";
@@ -32,8 +32,16 @@ export type todo = {
   id: number;
 };
 
+export type dates = {
+  date: string,
+  textColor: string,
+  backgroundColor: string
+}
+
 const Notes = () => {
-  const [todo, setTodos] = useState<todo[]>([]);
+  const [todos, setTodos] = useState<todo[]>([]);
+
+  const [datasNotes, setDatasNotes] = useState<dates[]>([]);
 
   const [modal, setShowModal] = useState<boolean>(false);
 
@@ -41,6 +49,8 @@ const Notes = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [id, setId] = useState<number>(0);
+  const [noteDate, setNoteDate] = useState<string>("");
+
 
   const showModal = () => setShowModal(!modal);
 
@@ -52,25 +62,46 @@ const Notes = () => {
     setDate(formattedDate);
   };
 
+  const selectedNoteDate = (date: string) => {
+    const formattedDate = format(parseISO(date), "dd/MM/yyyy");
+    setNoteDate(formattedDate);
+  }
+
   const selectedTitle = (title: string) => setTitle(title);
+
+
+  const formatDate = (date: string) => {
+    let year = date.substring(6, date.length);
+    let day = date.substring(0, 2);
+    let month = date.substring(3,5);
+    let result = year + "-" + month + "-" + day;
+    return result
+  }
 
   const createTodo = () => {
     showModal();
 
     let objTask: todo = {
       title: title,
-      date: date,
+      date: noteDate,
       description: description,
       id: id,
     };
 
+    let objDates: dates = {
+      date: formatDate(noteDate),
+      textColor: "#09721b",
+      backgroundColor: "#c8e5d0"
+    }
+
     setId(id + 1);
 
     setTodos((todo) => [...todo, objTask]);
+    setDatasNotes((datasNotes) => [...datasNotes, objDates]);
   };
 
   const deleteTodo = (id: number) => {
-    var filtered = todo.filter((todo) => todo.id != id);
+    var filtered = todos.filter((todo) => todo.id != id);
     setTodos(filtered);
   };
 
@@ -86,12 +117,14 @@ const Notes = () => {
               <IonTitle>Notes</IonTitle>
             </div>
             <div className="ion-padding-end">
-              <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
+              <IonDatetimeButton datetime="datetime-header"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  id="datetime"
+                  id="datetime-header"
                   presentation="date"
+                  locale="pt-BR"
                   showDefaultButtons={true}
+                  highlightedDates={datasNotes}
                   onIonChange={(e) => selectedDate(e.detail.value as string)}
                 ></IonDatetime>
               </IonModal>
@@ -103,7 +136,7 @@ const Notes = () => {
       <IonContent fullscreen={true}>
         <IonGrid fixed={true}>
           <IonRow>
-            {todo.map((item) => {
+            {todos.map((item) => {
               return (
                 <IonCol size="4">
                   <Card
@@ -181,7 +214,7 @@ const Notes = () => {
                   presentation="date"
                   locale="pt-BR"
                   showDefaultButtons={true}
-                  onIonChange={(e) => selectedDate(e.detail.value as string)}
+                  onIonChange={(e) => selectedNoteDate(e.detail.value as string)}
                 ></IonDatetime>
               </IonModal>
             </div>
