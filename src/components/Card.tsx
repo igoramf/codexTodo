@@ -10,6 +10,7 @@ import {
 import '../theme/variables.css';
 import { trashBin, checkmarkCircle } from 'ionicons/icons';
 import styles from './Card.module.css'
+import { useState } from "react";
 
 export type props = {
     title: string,
@@ -20,10 +21,14 @@ export type props = {
 }
 
 export const Card = ( {title, data, description, id, deleteTodo} : props ) => {
+
+  const [colorDone, setColorDone] = useState<string>("light");
+
+
   return (
-    <IonCard color='light'>
+    <IonCard color={colorDone}>
       <IonCardHeader>
-        <IonCardTitle>{title}</IonCardTitle>
+        <IonCardTitle>{title.toUpperCase()}</IonCardTitle>
         <IonCardSubtitle> {data}</IonCardSubtitle>
       </IonCardHeader>
       
@@ -32,7 +37,7 @@ export const Card = ( {title, data, description, id, deleteTodo} : props ) => {
       </IonCardContent>
 
       <div className={styles.buttons}>
-        <IonButton fill="clear"><IonIcon slot="start" icon={checkmarkCircle}></IonIcon></IonButton>
+        <IonButton fill="clear" onClick={() => {setColorDone("warning")}}><IonIcon slot="start" icon={checkmarkCircle}></IonIcon></IonButton>
         <IonButton fill="clear" onClick={() => deleteTodo(id)}><IonIcon slot="start" icon={trashBin}></IonIcon></IonButton>
       </div>
     </IonCard>
