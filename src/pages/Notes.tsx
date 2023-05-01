@@ -78,6 +78,17 @@ const Notes = () => {
     return result
   }
 
+  const addDateInCalendar = () => {
+    let objDates: dates = {
+      date: formatDate(noteDate),
+      textColor: "#ffffff",
+      backgroundColor: "#6a64ff",
+    }
+    setDatasNotes((datasNotes) => [...datasNotes, objDates]);
+  }
+
+  console.log(datasNotes)
+
   const createTodo = () => {
     showModal();
 
@@ -88,16 +99,10 @@ const Notes = () => {
       id: id,
     };
 
-    let objDates: dates = {
-      date: formatDate(noteDate),
-      textColor: "#09721b",
-      backgroundColor: "#c8e5d0"
-    }
-
     setId(id + 1);
 
     setTodos((todo) => [...todo, objTask]);
-    setDatasNotes((datasNotes) => [...datasNotes, objDates]);
+    addDateInCalendar()
   };
 
   const deleteTodo = (id: number) => {
