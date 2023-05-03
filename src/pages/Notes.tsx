@@ -35,7 +35,8 @@ export type todo = {
 export type dates = {
   date: string,
   textColor: string,
-  backgroundColor: string
+  backgroundColor: string,
+  id: number
 }
 
 const Notes = () => {
@@ -79,15 +80,17 @@ const Notes = () => {
   }
 
   const addDateInCalendar = () => {
-    let objDates: dates = {
-      date: formatDate(noteDate),
-      textColor: "#ffffff",
-      backgroundColor: "#6a64ff",
+   
+      let objDates: dates = {
+        date: formatDate(noteDate),
+        textColor: "#ffffff",
+        backgroundColor: "#6a64ff",
+        id: id
     }
+
     setDatasNotes((datasNotes) => [...datasNotes, objDates]);
   }
 
-  console.log(datasNotes)
 
   const createTodo = () => {
     showModal();
@@ -108,7 +111,13 @@ const Notes = () => {
   const deleteTodo = (id: number) => {
     var filtered = todos.filter((todo) => todo.id != id);
     setTodos(filtered);
+    deleteDate(id)
   };
+
+  const deleteDate = (id: number) => {
+    var filtered = datasNotes.filter((data) => data.id != id)
+    setDatasNotes(filtered)
+  }
 
   return (
     <IonPage>
