@@ -55,10 +55,19 @@
     "youch-terminal": "^2.2.0"
   },
   "dependencies": {
+    "@adonisjs/auth": "^8.2.3",
     "@adonisjs/core": "^5.9.0",
+    "@adonisjs/lucid": "^18.3.0",
     "@adonisjs/repl": "^3.1.11",
+    "adonis-lucid-mongo": "^3.1.8",
+    "luxon": "^3.3.0",
+    "mongodb": "^5.3.0",
+    "mysql2": "^3.2.4",
+    "pg": "^8.10.0",
+    "phc-argon2": "^1.1.4",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
-    "source-map-support": "^0.5.21"
+    "source-map-support": "^0.5.21",
+    "sqlite3": "^5.1.6"
   }
 }
