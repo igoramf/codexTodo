@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "react-scripts": "5.0.1"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "axios": "^1.4.0"
+  }
+}
