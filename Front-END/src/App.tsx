@@ -4,7 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import Notes from './pages/Notes';
 import Inbox from './pages/Inbox';
-
+import Conta from './pages/Conta';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -37,8 +37,8 @@ const App: React.FC = () => {
               <Redirect to="/page/Inbox"/>
             </Route>
             <Route path="/page/notes" component={Notes} exact={true}></Route>
-            <Route path="/page/Inbox" component={Inbox} exact={true}>
-            </Route>
+            <Route path="/page/Inbox" component={Inbox} exact={true}></Route>
+            <Route path="/page/conta" component={Conta} exact={true}></Route>
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>

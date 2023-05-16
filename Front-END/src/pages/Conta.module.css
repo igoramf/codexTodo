@@ -1,0 +1,11 @@
+.main{
+    height: 100%;
+    width: 50%;
+    padding: 30px;
+    display: flex; 
+    flex-direction: column;
+}
+
+.forms{
+    margin-bottom: 20px;
+}
