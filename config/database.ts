@@ -22,22 +22,10 @@ const databaseConfig: DatabaseConfig = {
   | file.
   |
   */
-  connection: Env.get('DB_CONNECTION'),
+  connection: Env.get('DB_CONNECTION', 'mongodb'),
 
   connections: {
 
-    mongodb: {
-      client: 'mongodb',
-      connectionString: Env.get('MONGODB_CONNECTION_STRING'),
-      connection: {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-      },
-    },
-    
-    
     /*
     |--------------------------------------------------------------------------
     | SQLite
@@ -121,6 +109,18 @@ const databaseConfig: DatabaseConfig = {
       debug: false,
     },
 
+    mongodb: {
+      client: 'mongodb',
+      connectionString: Env.get('MONGODB_CONNECTION_STRING'),
+      connection: {
+        //srv: true
+      },
+      migrations: {
+        naturalSort: true,
+      },
+      healthCheck: false,
+      debug: false,
+    }
   }
 }
 
