@@ -24,7 +24,6 @@ export const Card = ( {title, data, description, id, deleteTodo} : props ) => {
 
   const [colorDone, setColorDone] = useState<string>("light");
 
-
   return (
     <IonCard color={colorDone}>
       <IonCardHeader>

@@ -51,8 +51,10 @@ const appPages: AppPage[] = [
 ];
 
 
+
 const Menu: React.FC = () => {
   const location = useLocation();
+
 
   return (
     <IonMenu contentId="main" type="overlay">
@@ -62,7 +64,7 @@ const Menu: React.FC = () => {
           <IonAvatar>
             <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
           </IonAvatar>
-          <IonListHeader>Nome do Usuario</IonListHeader>
+          <IonListHeader>Nome do usuario</IonListHeader>
           </div>
           {appPages.map((appPage, index) => {
             return (
