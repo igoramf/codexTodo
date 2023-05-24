@@ -21,9 +21,10 @@ import {
   IonCol,
 } from "@ionic/react";
 import { format, parse, parseISO } from "date-fns";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./Notes.module.css";
 import { Card } from "../components/Card";
+import { AuthContext } from "../contexts/Auth/AuthContext";
 
 export type todo = {
   title: string;

@@ -69,10 +69,11 @@ const SignIn = () => {
 
 
   const handleLogin = async () => {
+
     if(isValid && validPassword){
         const isLogged = await auth.signin(email, password);
         if(isLogged != null){
-
+          alert("LOGIN REALIZADO")
           navigate.push("/page/Inbox")
         } else{
           alert("EMAIL OU SENHA INCORRETOS")

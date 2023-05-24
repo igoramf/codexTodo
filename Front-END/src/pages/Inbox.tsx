@@ -1,21 +1,33 @@
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent, IonPage, IonHeader, IonToolbar, IonMenuButton, IonButtons, IonTitle } from "@ionic/react";
 import styles from "./Inbox.module.css";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/Auth/AuthContext";
 
 const Inbox = () => {
-
   const data = useContext(AuthContext);
+  console.log(data.user);
 
   return (
-      <IonPage>
-        <IonContent fullscreen={true}>
-          <div className={styles.div}>
-            <h1>BEM VINDO</h1>
-            <h1>{data.user?.name}</h1>
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <div className={styles.header}>
+            <div className={styles.buttonMenu}>
+              <IonButtons slot="start">
+                <IonMenuButton color="tertiary" />
+              </IonButtons>
+              <IonTitle>CodexNotes</IonTitle>
+            </div>
           </div>
-        </IonContent>
-      </IonPage>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent fullscreen={true}>
+        <div className={styles.div}>
+          <h1>BEM VINDO</h1>
+          <h1>{data.user?.nome}</h1>
+        </div>
+      </IonContent>
+    </IonPage>
   );
 };
 

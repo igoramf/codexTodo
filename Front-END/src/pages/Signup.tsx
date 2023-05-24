@@ -12,8 +12,12 @@ import {
   IonInput,
   IonButton,
   useIonRouter,
+  IonList,
+  IonItem,
+  IonSelectOption,
+  IonSelect
 } from "@ionic/react";
-import styles from "./SignIn.module.css";
+import styles from "./Signup.module.css";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/Auth/AuthContext";
 import axios from "axios";
@@ -22,20 +26,16 @@ const SignUp = () => {
   const [isTouched, setIsTouched] = useState(false);
   const [isValid, setIsValid] = useState<boolean>();
 
-
   const [validPassword, setValidPassword] = useState<boolean>();
   const [validAge, setValidAge] = useState<boolean>();
   const [validName, setValidName] = useState<boolean>();
   const [validGenero, setValidGenero] = useState<boolean>();
-  
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [genero, setGenero] = useState<string>("");
   const [age, setAge] = useState<number>(0);
-  
-
 
   const auth = useContext(AuthContext);
   const navigate = useIonRouter();
@@ -83,8 +83,9 @@ const SignUp = () => {
     }
   };
 
-  const validateGenero = (e: Event) => {
-    const value = (e.target as HTMLInputElement).value;
+  const validateGenero = (e: CustomEvent) => {
+
+    const value = e.detail.value
 
     if (value == "") {
       setValidGenero(false);
@@ -105,21 +106,21 @@ const SignUp = () => {
     }
   };
 
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!isValid || !validPassword ||  !validName || !validAge || !validGenero) alert("PREENCHA TODOS OS CAMPOS");
-};
+    if (!isValid || !validPassword || !validName || !validAge || !validGenero)
+      alert("PREENCHA TODOS OS CAMPOS");
+  };
 
   const handleSignUp = async () => {
     if (isValid && validPassword && validName) {
-     const created = await auth.signup(email, name, age, genero, password);
+      const created = await auth.signup(email, name, age, genero, password);
 
       if (created) {
-        alert("Usuario CRIADO")
+        alert("Usuario CRIADO");
         setTimeout(() => {
           navigate.push("/page/Inbox");
-        }, 1000)
+        }, 1000);
       } else {
         alert("EMAIL OU SENHA INCORRETOS");
       }
@@ -170,13 +171,26 @@ const SignUp = () => {
                       ></IonInput>
                     </div>
                     <div className={styles.Input}>
-                      <IonInput
-                        label="Sobrenome"
-                        labelPlacement="floating"
-                        fill="solid"
-                        type="text"
-                        onIonInput={(event) => validateGenero(event)}
-                      ></IonInput>
+                      <IonList>
+                        <IonItem>
+                          <IonSelect
+                            aria-label="Genero"
+                            interface="popover"
+                            placeholder="Seleciona seu genero"
+                            onIonChange={(e) => validateGenero(e)}
+                          >
+                            <IonSelectOption value="masculino">
+                              Masculino
+                            </IonSelectOption>
+                            <IonSelectOption value="Feminino">
+                              Feminino
+                            </IonSelectOption>
+                            <IonSelectOption value="outro">
+                              Outro
+                            </IonSelectOption>
+                          </IonSelect>
+                        </IonItem>
+                      </IonList>
                     </div>
                     <div className={styles.Input}>
                       <IonInput

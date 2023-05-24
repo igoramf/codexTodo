@@ -6,11 +6,17 @@ import {
   IonInput,
   IonItemDivider,
   IonButton,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonMenuButton
 } from "@ionic/react";
 import styles from "./Conta.module.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import { set } from "date-fns";
+import { AuthContext } from "../contexts/Auth/AuthContext";
 
 
 const Conta = () => {
@@ -18,27 +24,14 @@ const Conta = () => {
     const [name, setName] = useState<string>("");
     const [age, setAge] = useState<number>(0);
     const [email, setEmail] = useState<string>("");
+    const [senha, setSenha] = useState<string>("");
 
-
-    const submit = () => {
-        let response = axios.get("https://dummyjson.com/users/1");
-        response.then((res) => {
-            console.log(res.data)
-            renderData(res.data.age, res.data.firstName, res.data.email)
-        }).catch((e) => console.log(`erro na requisicao: ${e}`))
-    }
-
-    const renderData = (age: number, name: string , email: string) => {
-        setName(name)
-        setAge(age)
-        setEmail(email)
-    }
-
-    useEffect(submit,[])
+    const user = useContext(AuthContext);
 
     const data = {
       firstName: {name},
       email: {email},
+      senha: {senha},
       age: {age}
     }
 
@@ -48,6 +41,18 @@ const Conta = () => {
 
     return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <div className={styles.header}>
+            <div className={styles.buttonMenu}>
+              <IonButtons slot="start">
+                <IonMenuButton color="tertiary" />
+              </IonButtons>
+              <IonTitle>CodexNotes</IonTitle>
+            </div>
+          </div>
+        </IonToolbar>
+      </IonHeader>
       <IonContent fullscreen={true}>
         <div className={styles.main}>
           <h1>Configuracoes da Conta</h1>
@@ -60,7 +65,7 @@ const Conta = () => {
                         labelPlacement="stacked"
                         clearInput={true}
                         placeholder="Digite o seu nome"
-                        value={name}
+                        value={user.user?.nome}
                         onIonChange={(e) => setName(e.detail.value as string)}
                         ></IonInput>
                     </IonItem>
@@ -72,8 +77,22 @@ const Conta = () => {
                   labelPlacement="stacked"
                   clearInput={true}
                   placeholder="Digite a sua idade"
-                  value={age}
+                  value={user.user?.idade}
                   onIonChange={(e) => setAge(parseInt(e.detail.value as string))}
+                  disabled
+                ></IonInput>
+              </IonItem>
+
+                </div>
+                <div className={styles.forms}>
+              <IonItem>
+                <IonInput
+                  label="Senha"
+                  labelPlacement="stacked"
+                  clearInput={true}
+                  placeholder="Digite a sua senha nova"
+                  value={user.user?.id}
+                  onIonChange={(e) => setSenha(e.detail.value as string)}
                 ></IonInput>
               </IonItem>
 
@@ -86,7 +105,7 @@ const Conta = () => {
                     labelPlacement="stacked"
                     clearInput={true}
                     placeholder="Digite seu nome"
-                    value={email}
+                    value={user.user?.email}
                     disabled
                     ></IonInput>
                 </IonItem>

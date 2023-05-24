@@ -13,15 +13,19 @@ import {
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import {  bookmarksOutline, bookmarksSharp, checkmarkDoneOutline, settingsOutline, settingsSharp, trashOutline, trashSharp } from 'ionicons/icons';
+import {  bookmarksOutline, bookmarksSharp, checkmarkDoneOutline, exit, settingsOutline, settingsSharp, trashOutline, trashSharp } from 'ionicons/icons';
 import './Menu.css';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/Auth/AuthContext';
 
 interface AppPage {
   url: string;
   iosIcon: string;
   mdIcon: string;
   title: string;
+  onClick?: () => void;
 }
+
 
 const appPages: AppPage[] = [
   {
@@ -47,13 +51,19 @@ const appPages: AppPage[] = [
     url: '/page/conta',
     iosIcon: settingsOutline,
     mdIcon: settingsSharp
+  },
+  {
+    title: 'Sair',
+    url: '/signin',
+    iosIcon: exit,
+    mdIcon: exit,
   }
 ];
 
 
-
 const Menu: React.FC = () => {
   const location = useLocation();
+  const data = useContext(AuthContext);
 
 
   return (
@@ -64,7 +74,7 @@ const Menu: React.FC = () => {
           <IonAvatar>
             <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
           </IonAvatar>
-          <IonListHeader>Nome do usuario</IonListHeader>
+          <IonListHeader>{data.user?.nome}</IonListHeader>
           </div>
           {appPages.map((appPage, index) => {
             return (

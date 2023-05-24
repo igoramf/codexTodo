@@ -13,12 +13,12 @@ import { RequireAuth } from "../contexts/Auth/RequireAuth";
 import SignUp from "../pages/Signup";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/Auth/AuthContext";
-import { User } from "../types/User";
+
 
 const Logged = () => {
   const data = useContext(AuthContext);
 
-  return data.user ? true : false
+  return data.user?.nome != null ? true : false;
 };
 
 const SystemRoute = () => {

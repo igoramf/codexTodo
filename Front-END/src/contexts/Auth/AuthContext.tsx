@@ -10,9 +10,3 @@ export type AuthContextType = {
 
 
 export const AuthContext = createContext<AuthContextType>(null!);
-
-/* export const ContextProvider = ({ children }: {children: ReactNode}): ReactElement  => {
-    return (
-        <Context.Provider value={initialState}> {children} </Context.Provider>
-    )
-} */

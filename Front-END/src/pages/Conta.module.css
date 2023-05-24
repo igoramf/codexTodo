@@ -9,3 +9,23 @@
 .forms{
     margin-bottom: 20px;
 }
+
+
+.item{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buttonMenu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
