@@ -2,10 +2,10 @@ import { IonContent, IonPage, IonHeader, IonToolbar, IonMenuButton, IonButtons, 
 import styles from "./Inbox.module.css";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/Auth/AuthContext";
+import { RequireAuth } from "../contexts/Auth/RequireAuth";
 
 const Inbox = () => {
   const data = useContext(AuthContext);
-  console.log(data.user);
 
   return (
     <IonPage>

@@ -4,12 +4,7 @@ import {
   IonSplitPane,
   setupIonicReact,
 } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
-import { Redirect, Route } from "react-router-dom";
-import Menu from "./components/Menu";
-import Notes from "./pages/Notes";
-import Inbox from "./pages/Inbox";
-import Conta from "./pages/Conta";
+
 import SystemRoute from "./routes/SystemRoute";
 
 /* Core CSS required for Ionic components to work properly */

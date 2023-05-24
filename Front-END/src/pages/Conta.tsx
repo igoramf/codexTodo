@@ -91,8 +91,9 @@ const Conta = () => {
                   labelPlacement="stacked"
                   clearInput={true}
                   placeholder="Digite a sua senha nova"
-                  value={user.user?.id}
+                  value={"12334567"}
                   onIonChange={(e) => setSenha(e.detail.value as string)}
+                  type="password"
                 ></IonInput>
               </IonItem>
 

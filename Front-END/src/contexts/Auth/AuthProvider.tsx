@@ -18,7 +18,7 @@ export const AuthProvider = ( {children} : {children: JSX.Element}) => {
             }
         };
         validateToken();
-    }, [])
+    }, [api])
 
 
     const signin =  async (email: string, password: string) => {
@@ -43,11 +43,9 @@ export const AuthProvider = ( {children} : {children: JSX.Element}) => {
 
 
     const signout = async () => {
-        await api.logout();
         setUser(null)
+        setToken("")
     }
-
-
 
     const setToken = (token: string ) => {
         localStorage.setItem("authToken", token);
