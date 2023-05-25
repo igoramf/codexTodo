@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
 
-.input{
+.Input{
     margin-bottom: 10px;
 }
 
@@ -53,3 +53,11 @@ h1{
     font-family: 'Poppins', sans-serif;
 }
 
+a{
+    text-decoration: none;
+    transition: color .2s ease-out 100ms
+}
+
+a:hover{
+    color: whitesmoke;
+}

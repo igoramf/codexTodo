@@ -8,52 +8,50 @@ import Conta from "../pages/Conta";
 import SignIn from "../pages/SingIn";
 import { RequireAuth } from "../contexts/Auth/RequireAuth";
 import SignUp from "../pages/Signup";
-import { useContext } from "react";
-import { AuthContext } from "../contexts/Auth/AuthContext";
-
-const Logged = () => {
-  const data = useContext(AuthContext);
-
-  return data.user?.nome != null ? true : false;
-};
 
 const SystemRoute = () => {
   return (
     <IonReactRouter>
       <IonSplitPane contentId="main">
-        <RequireAuth>
-          <Menu />
-        </RequireAuth>
+        <RequireAuth><Menu /></RequireAuth>
         <IonRouterOutlet id="main">
           {
             <>
               <Route path="/*" component={SignIn} exact={true}></Route>
               <Route path="/signup" component={SignUp} exact={true}></Route>
+
               <RequireAuth>
-                <>
                   <Route path="/" exact={true}>
                     <Redirect to={"/page/Inbox"} />
                   </Route>
-                  <Route path="/" exact={true}>
-                    <Redirect to={"/page/Inbox"} />
-                  </Route>
+              </RequireAuth>
+
+              <RequireAuth>
                   <Route
                     path="/page/notes"
                     component={Notes}
                     exact={true}
                   ></Route>
+              </RequireAuth>
+
+              <RequireAuth>
+
                   <Route
                     path="/page/conta"
                     component={Conta}
                     exact={true}
                   ></Route>
+              </RequireAuth>
+
+              <RequireAuth>
+
                   <Route
                     path="/page/Inbox"
                     component={Inbox}
                     exact={true}
                   ></Route>
-                </>
               </RequireAuth>
+      
             </>
           }
         </IonRouterOutlet>

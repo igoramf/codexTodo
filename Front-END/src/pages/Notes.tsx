@@ -92,6 +92,13 @@ const Notes = () => {
   const createTodo = () => {
     showModal();
 
+    console.log(title.length)
+
+    if(!title && !noteDate && !description){
+      alert("Preecha os campos")
+      return;
+    } 
+
     let objTask: todo = {
       title: title,
       date: noteDate,
@@ -103,6 +110,10 @@ const Notes = () => {
 
     setTodos((todo) => [...todo, objTask]);
     addDateInCalendar();
+
+    setTitle("")
+    setNoteDate("")
+    setDescription("")
   };
 
   const deleteTodo = (id: number) => {
@@ -194,7 +205,7 @@ const Notes = () => {
           <IonItem className="ion-margin-bottom">
             <IonLabel position="floating">Titulo</IonLabel>
             <IonInput
-              placeholder="Titula da tarefa"
+              placeholder="Titulo da tarefa"
               type="text"
               counter={true}
               maxlength={15}
@@ -204,7 +215,7 @@ const Notes = () => {
           </IonItem>
 
           <IonItem className="ion-margin-bottom">
-            <IonLabel position="floating">Description</IonLabel>
+            <IonLabel position="floating">Descricao</IonLabel>
             <IonInput
               placeholder="Descricao da tarefa"
               type="text"
