@@ -72,11 +72,11 @@ const SignIn = () => {
 
     if(isValid && validPassword){
         const isLogged = await auth.signin(email, password);
-        if(isLogged != null){
+        if(isLogged){
           alert("LOGIN REALIZADO")
           navigate.push("/page/Inbox")
         } else{
-          alert("EMAIL OU SENHA INCORRETOS")
+          console.log("tesste")
         }
     }
   }

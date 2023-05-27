@@ -26,7 +26,6 @@ import styles from "./Notes.module.css";
 import { Card } from "../components/Card";
 import { AuthContext } from "../contexts/Auth/AuthContext";
 import { useApiTask } from "../hooks/useApiTask";
-import axios from "axios";
 
 export type todo = {
   _id: string;
@@ -99,7 +98,7 @@ const Notes = () => {
       backgroundColor: "#6a64ff",
     };
 
-    setDatasNotes([...datasNotes, objDates]);
+    setDatasNotes((datasNotes) => [...datasNotes, objDates]);
   }; 
 
   const createTodo = () => {
@@ -117,8 +116,6 @@ const Notes = () => {
     }else{
       api.create(title, description, noteDate, false, user.user?._id?.toString()!);
     }
-
-    // addDateInCalendar();
 
     setTitle("")
     setNoteDate("")
@@ -151,6 +148,8 @@ const Notes = () => {
   useEffect(() => {
       getTodos()
     },[])
+
+    getTodos()
 
   return (
     <IonPage>
