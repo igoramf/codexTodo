@@ -16,8 +16,8 @@ export type props = {
     title: string,
     description: string,
     data: string,
-    id: number,
-    deleteTodo: (id: number) => void;
+    id: string,
+    deleteTodo: (id: string) => void;
 }
 
 export const Card = ( {title, data, description, id, deleteTodo} : props ) => {
@@ -36,7 +36,7 @@ export const Card = ( {title, data, description, id, deleteTodo} : props ) => {
       </IonCardContent>
 
       <div className={styles.buttons}>
-        <IonButton fill="clear" onClick={() => {setColorDone("warning")}}><IonIcon slot="start" icon={checkmarkCircle}></IonIcon></IonButton>
+        <IonButton fill="clear" onClick={() => {setColorDone("success")}}><IonIcon slot="start" icon={checkmarkCircle}></IonIcon></IonButton>
         <IonButton fill="clear" onClick={() => deleteTodo(id)}><IonIcon slot="start" icon={trashBin}></IonIcon></IonButton>
       </div>
     </IonCard>

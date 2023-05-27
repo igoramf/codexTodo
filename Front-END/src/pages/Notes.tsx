@@ -21,36 +21,44 @@ import {
   IonCol,
 } from "@ionic/react";
 import { format, parse, parseISO } from "date-fns";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./Notes.module.css";
 import { Card } from "../components/Card";
 import { AuthContext } from "../contexts/Auth/AuthContext";
+import { useApiTask } from "../hooks/useApiTask";
+import axios from "axios";
 
 export type todo = {
-  title: string;
-  description: string;
-  date: string;
-  id: number;
+  _id: string;
+  nome: string;
+  descricao: string;
+  concluida: boolean;
+  usuario?: string;
+  data: string;
 };
 
 export type dates = {
   date: string;
   textColor: string;
   backgroundColor: string;
-  id: number;
+  _id: string;
 };
 
+
 const Notes = () => {
+  const api = useApiTask();
+
+
   const [todos, setTodos] = useState<todo[]>([]);
 
   const [datasNotes, setDatasNotes] = useState<dates[]>([]);
-
+  
   const [modal, setShowModal] = useState<boolean>(false);
-
+  
+  const user = useContext(AuthContext);
   const [date, setDate] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [id, setId] = useState<number>(0);
   const [noteDate, setNoteDate] = useState<string>("");
 
   const showModal = () => setShowModal(!modal);
@@ -64,68 +72,78 @@ const Notes = () => {
   };
 
   const selectedNoteDate = (date: string) => {
-    const formattedDate = format(parseISO(date), "dd/MM/yyyy");
-    setNoteDate(formattedDate);
+    
+    setNoteDate(date);
   };
 
   const selectedTitle = (title: string) => setTitle(title);
 
   const formatDate = (date: string) => {
-    let year = date.substring(6, date.length);
-    let day = date.substring(0, 2);
-    let month = date.substring(3, 5);
-    let result = year + "-" + month + "-" + day;
+    const formattedDate = format(parseISO(date), "dd/MM/yyyy");
+    let year = formattedDate.substring(6, date.length);
+    let day = formattedDate.substring(0, 2);
+    let month = formattedDate.substring(3, 5);
+    let result = day + "-" + month + "-" + year;
     return result;
   };
 
-  const addDateInCalendar = () => {
+  /*const addDateInCalendar = () => {
     let objDates: dates = {
       date: formatDate(noteDate),
       textColor: "#ffffff",
       backgroundColor: "#6a64ff",
-      id: id,
     };
 
     setDatasNotes((datasNotes) => [...datasNotes, objDates]);
-  };
+  }; */
 
   const createTodo = () => {
     showModal();
 
-    console.log(title.length)
-
     if(!title && !noteDate && !description){
       alert("Preecha os campos")
       return;
-    } 
+    }
+    
+    if(noteDate.length == 0){
+      const data = new Date()
+      const dataAtual = data.toISOString();
+      api.create(title, description, dataAtual, false, user.user?._id?.toString()!);
+    }else{
+      api.create(title, description, noteDate, false, user.user?._id?.toString()!);
+    }
 
-    let objTask: todo = {
-      title: title,
-      date: noteDate,
-      description: description,
-      id: id,
-    };
-
-    setId(id + 1);
-
-    setTodos((todo) => [...todo, objTask]);
-    addDateInCalendar();
+    // addDateInCalendar();
 
     setTitle("")
     setNoteDate("")
     setDescription("")
   };
 
-  const deleteTodo = (id: number) => {
-    var filtered = todos.filter((todo) => todo.id != id);
+  const deleteTodo = (id: string) => {
+    api.deleteTodo(id)
+    var filtered = todos.filter((todo) => todo._id != id);
     setTodos(filtered);
     deleteDate(id);
-  };
+  }; 
 
-  const deleteDate = (id: number) => {
-    var filtered = datasNotes.filter((data) => data.id != id);
+  const deleteDate = (id: string) => {
+    var filtered = datasNotes.filter((data) => data._id != id);
     setDatasNotes(filtered);
   };
+
+  const getTodos =  async () => {
+    const allTodos = await api.getUserTodo(user.user?._id?.toString()!)
+    const result = allTodos.filter((task : todo) => task.usuario == user.user?._id?.toString()!);
+
+    setTodos(result)
+  }
+
+  useEffect(() => {
+      getTodos()
+  },[])
+
+
 
   return (
     <IonPage>
@@ -158,16 +176,18 @@ const Notes = () => {
       <IonContent fullscreen={true}>
         <IonGrid fixed={true}>
           <IonRow>
-            {todos.map((item) => {
+            {todos.map((item, key) => {
               return (
                 <IonCol size="4">
-                  <Card
-                    title={item.title}
-                    data={item.date}
-                    description={item.description}
-                    id={item.id}
-                    deleteTodo={deleteTodo}
+                  <Card 
+                    title={item.nome}
+                    description={item.descricao}
+                    data={formatDate(item.data)}
+                    id={item._id}
+                    deleteTodo={deleteTodo}                  
+                  
                   />
+                  
                 </IonCol>
               );
             })}

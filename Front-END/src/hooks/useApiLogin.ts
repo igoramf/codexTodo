@@ -4,7 +4,7 @@ const api = axios.create({
     baseURL: 'http://localhost:3001'
 });
 
-export const useApi = () => ({
+export const useApiLogin = () => ({
     validateToken: async (token: string) => {
         const response = await api.post('/users/validate', {}, {
             headers: {
