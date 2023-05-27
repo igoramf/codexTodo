@@ -119,7 +119,8 @@ const SignUp = () => {
       if (created) {
         alert("Usuario CRIADO");
         setTimeout(() => {
-          navigate.push("/page/Inbox");
+          navigate.push("/signin");
+          window.location.href = window.location.href
         }, 1000);
       } else {
         alert("EMAIL OU SENHA INCORRETOS");

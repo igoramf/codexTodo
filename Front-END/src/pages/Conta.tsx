@@ -14,8 +14,7 @@ import {
 } from "@ionic/react";
 import styles from "./Conta.module.css";
 import { useContext, useEffect, useState } from "react";
-import axios from 'axios';
-import { set } from "date-fns";
+
 import { AuthContext } from "../contexts/Auth/AuthContext";
 
 
@@ -28,6 +27,12 @@ const Conta = () => {
 
     const user = useContext(AuthContext);
 
+    useEffect(() => {
+      setName(user.user?.nome!)
+    })
+
+
+
     const data = {
       firstName: {name},
       email: {email},
@@ -36,7 +41,7 @@ const Conta = () => {
     }
 
     const updateData = () => {
-        axios.put("https://dummyjson.com/users/add", data)
+        
     }
 
     return (
@@ -63,10 +68,22 @@ const Conta = () => {
                         <IonInput
                         label="Nome"
                         labelPlacement="stacked"
+                        value={name}
                         clearInput={true}
                         placeholder="Digite o seu nome"
-                        value={user.user?.nome}
                         onIonChange={(e) => setName(e.detail.value as string)}
+                        ></IonInput>
+                    </IonItem>
+                </div>
+                <div className={styles.forms}>
+                    <IonItem>
+                        <IonInput
+                        label="Genero"
+                        labelPlacement="stacked"
+                        clearInput={true}
+                        value={user.user?.genero}
+                        onIonChange={(e) => setName(e.detail.value as string)}
+                        disabled
                         ></IonInput>
                     </IonItem>
                 </div>
@@ -79,7 +96,6 @@ const Conta = () => {
                   placeholder="Digite a sua idade"
                   value={user.user?.idade}
                   onIonChange={(e) => setAge(parseInt(e.detail.value as string))}
-                  disabled
                 ></IonInput>
               </IonItem>
 
@@ -94,6 +110,7 @@ const Conta = () => {
                   value={"12334567"}
                   onIonChange={(e) => setSenha(e.detail.value as string)}
                   type="password"
+                  disabled
                 ></IonInput>
               </IonItem>
 

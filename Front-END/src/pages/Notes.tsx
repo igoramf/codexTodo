@@ -104,7 +104,7 @@ const Notes = () => {
   const createTodo = () => {
     showModal();
 
-    if(!title && !noteDate && !description){
+    if(!title || !description){
       alert("Preecha os campos")
       return;
     }
@@ -127,7 +127,11 @@ const Notes = () => {
     var filtered = todos.filter((todo) => todo._id != id);
     setTodos(filtered);
     deleteDate(id);
-  }; 
+  };
+  
+  const updateTodo = (id: string) => {
+    api.updateTodo(id)
+  }
 
   const deleteDate = (id: string) => {
     var filtered = datasNotes.filter((data) => data._id != id);
@@ -189,7 +193,10 @@ const Notes = () => {
                     description={item.descricao}
                     data={formatDate(item.data)}
                     id={item._id}
-                    deleteTodo={deleteTodo}                  
+                    done={item.concluida}
+                    deleteTodo={deleteTodo}
+                    updateTodo={updateTodo}
+
                   
                   />
                   
@@ -261,6 +268,7 @@ const Notes = () => {
                   presentation="date"
                   locale="pt-BR"
                   showDefaultButtons={true}
+                  highlightedDates={datasNotes}
                   onIonChange={(e) =>
                     selectedNoteDate(e.detail.value as string)
                   }

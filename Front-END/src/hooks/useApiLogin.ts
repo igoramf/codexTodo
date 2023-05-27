@@ -33,5 +33,13 @@ export const useApiLogin = () => ({
     logout: async () => {
         const response = await api.post('/users/logout');
         return response.data;
+    },
+    update: async (email: string, name: string, age: number) => {
+        const response = await api.put('/users/editar', {
+            "email": email,
+            "nome": name,
+            "idade": age
+        });
+        return response.data;
     }
 })

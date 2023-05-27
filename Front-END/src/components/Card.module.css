@@ -1,6 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+*{
+    font-family: 'Poppins';
+}
+
 .buttons{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.data{
+    font-size: 13px;
+    font-weight: bold;
 }

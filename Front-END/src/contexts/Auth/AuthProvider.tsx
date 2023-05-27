@@ -41,6 +41,10 @@ export const AuthProvider = ( {children} : {children: JSX.Element}) => {
         return false
     }
 
+    const updateUser = async (email: string, name: string, age: number) => {
+        await api.update(email, name, age);
+    }
+
 
     const signout = async () => {
         setUser(null)
