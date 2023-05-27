@@ -56,7 +56,6 @@ const Notes = () => {
   const [modal, setShowModal] = useState<boolean>(false);
   
   const user = useContext(AuthContext);
-  const [date, setDate] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [noteDate, setNoteDate] = useState<string>("");
@@ -66,10 +65,6 @@ const Notes = () => {
   const selectedDescription = (description: string) =>
     setDescription(description);
 
-  const selectedDate = (date: string) => {
-    const formattedDate = format(parseISO(date), "dd/MM/yyyy");
-    setDate(formattedDate);
-  };
 
   const selectedNoteDate = (date: string) => {
     
@@ -87,15 +82,25 @@ const Notes = () => {
     return result;
   };
 
-  /*const addDateInCalendar = () => {
+  const formatDateToCalendar = (date: string) => {
+    const formattedDate = format(parseISO(date), "dd/MM/yyyy");
+    let year = formattedDate.substring(6, date.length);
+    let day = formattedDate.substring(0, 2);
+    let month = formattedDate.substring(3, 5);
+    let result = year + "-" + month + "-" + day;
+    return result;
+  };
+
+   const addDateInCalendar = (tasks : todo) => {
     let objDates: dates = {
-      date: formatDate(noteDate),
+      _id: tasks._id,
+      date: formatDateToCalendar(tasks.data),
       textColor: "#ffffff",
       backgroundColor: "#6a64ff",
     };
 
-    setDatasNotes((datasNotes) => [...datasNotes, objDates]);
-  }; */
+    setDatasNotes([...datasNotes, objDates]);
+  }; 
 
   const createTodo = () => {
     showModal();
@@ -134,16 +139,18 @@ const Notes = () => {
 
   const getTodos =  async () => {
     const allTodos = await api.getUserTodo(user.user?._id?.toString()!)
-    const result = allTodos.filter((task : todo) => task.usuario == user.user?._id?.toString()!);
+    const resultNotes = allTodos.filter((task : todo) => task.usuario == user.user?._id?.toString()!);
 
-    setTodos(result)
+    resultNotes.forEach((task : todo) => {
+      addDateInCalendar(task)
+    });
+
+    setTodos(resultNotes)
   }
 
   useEffect(() => {
       getTodos()
-  },[])
-
-
+    },[])
 
   return (
     <IonPage>
@@ -165,7 +172,6 @@ const Notes = () => {
                   locale="pt-BR"
                   showDefaultButtons={true}
                   highlightedDates={datasNotes}
-                  onIonChange={(e) => selectedDate(e.detail.value as string)}
                 ></IonDatetime>
               </IonModal>
             </div>
