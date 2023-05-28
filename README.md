@@ -6,7 +6,7 @@
 - Igor Alves Andrade Falcao 
 - Matheus Victor
 
-## ✏️ Descrição
+## :ballot_box_with_check:  Descrição
 Desenvolvimento de um sistema web responsivo de uma :ballot_box_with_check: ToDo List relacionado a uma aplicação que tem como objetivo organizar ações do dia-a-dia do usuário a serem feitas.
 
 ## 💻 Funções
