@@ -8,7 +8,6 @@
 
 .div h1{
     font-size: 100px;
-
 }
 
 .item{
@@ -28,4 +27,16 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+@media (max-width: 592px) {
+    .div h1{
+        font-size: 70px;
+    }
+}
+
+@media (max-width: 397px) {
+    .div h1{
+        font-size: 50px;
+    }
 }

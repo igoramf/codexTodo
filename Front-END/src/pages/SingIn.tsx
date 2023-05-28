@@ -94,9 +94,6 @@ const SignIn = () => {
               <IonTitle>
                 <a href="http://localhost:8100/signup">Cadastro</a>
               </IonTitle>
-              <IonTitle>
-                <a>Sobre</a>
-              </IonTitle>
             </div>
           </div>
         </IonToolbar>
@@ -104,12 +101,12 @@ const SignIn = () => {
       <IonContent fullscreen={true}>
         <div className={styles.main}>
           <IonGrid>
-            <IonRow className={styles.row}>
-              <IonCol className={styles.col}>
+            <IonRow className={styles.row} >
+              <IonCol className={`${styles.col} ${styles.img}`}>
                 <h1>A melhor forma de organizar as <br></br>suas tarefas do dia a dia.</h1>
                 <IonImg src="../../Notes-rafiki.svg"></IonImg>
               </IonCol>
-              <IonCol className={`${styles.col} ${styles.colLogin}`}>
+              <IonCol className={`${styles.col} ${styles.colLogin}`} >
                 <div className={styles.loginArea}>
                   <h1>Login</h1>
                   <form action="submit" onSubmit={(e) => handleSubmit(e)}>

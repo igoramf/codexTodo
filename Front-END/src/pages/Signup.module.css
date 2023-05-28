@@ -61,3 +61,15 @@ a{
 a:hover{
     color: whitesmoke;
 }
+
+@media (max-width: 669px) {
+    .img{
+        display: none;
+    }
+
+    .loginArea{
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+    }
+}

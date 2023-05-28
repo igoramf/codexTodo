@@ -46,3 +46,16 @@
 h1{
     font-family: 'Poppins', sans-serif;
 }
+
+
+@media (max-width: 669px) {
+    .img{
+        display: none;
+    }
+
+    .loginArea{
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+    }
+}

@@ -187,7 +187,7 @@ const Notes = () => {
           <IonRow>
             {todos.map((item, key) => {
               return (
-                <IonCol size="4">
+                <IonCol sizeXl="4" sizeLg="4" sizeMd="4" sizeSm="6" sizeXs="6">
                   <Card 
                     title={item.nome}
                     description={item.descricao}
