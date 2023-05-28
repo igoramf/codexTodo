@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://api-todolist-37w4.onrender.com/'
+    baseURL: 'http://localhost:3001'
 });
 
 
