@@ -1,5 +1,5 @@
 {
-  "name": "teste-app",
+  "name": "adonisjs-todo",
   "version": "1.0.0",
   "private": true,
   "scripts": {
