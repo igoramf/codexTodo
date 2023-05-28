@@ -120,6 +120,7 @@ const Notes = () => {
     setTitle("")
     setNoteDate("")
     setDescription("")
+    getTodos()
   };
 
   const deleteTodo = (id: string) => {
@@ -153,10 +154,9 @@ const Notes = () => {
       getTodos()
     },[])
 
-    getTodos()
 
   return (
-    <IonPage>
+    <IonPage onLoad={getTodos}>
       <IonHeader>
         <IonToolbar>
           <div className={styles.header}>
@@ -196,10 +196,8 @@ const Notes = () => {
                     done={item.concluida}
                     deleteTodo={deleteTodo}
                     updateTodo={updateTodo}
-
-                  
+  
                   />
-                  
                 </IonCol>
               );
             })}

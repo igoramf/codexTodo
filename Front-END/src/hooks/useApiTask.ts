@@ -38,5 +38,12 @@ export const useApiTask = () => ({
             "_id": id,
             "concluida": true
         })
+    },
+    updateTodoItem: async (id: string, title: string, description: string) => {
+        await api.put('/tarefa', {
+            "_id": id,
+            "nome": title,
+            "descricao": description
+        })
     }
 })
