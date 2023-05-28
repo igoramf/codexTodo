@@ -120,6 +120,7 @@ const Notes = () => {
     setTitle("")
     setNoteDate("")
     setDescription("")
+    getTodos()
   };
 
   const deleteTodo = (id: string) => {
@@ -153,10 +154,9 @@ const Notes = () => {
       getTodos()
     },[])
 
-    getTodos()
 
   return (
-    <IonPage>
+    <IonPage onLoad={getTodos}>
       <IonHeader>
         <IonToolbar>
           <div className={styles.header}>
@@ -187,7 +187,7 @@ const Notes = () => {
           <IonRow>
             {todos.map((item, key) => {
               return (
-                <IonCol size="4">
+                <IonCol sizeXl="4" sizeLg="4" sizeMd="4" sizeSm="6" sizeXs="6">
                   <Card 
                     title={item.nome}
                     description={item.descricao}
@@ -196,10 +196,8 @@ const Notes = () => {
                     done={item.concluida}
                     deleteTodo={deleteTodo}
                     updateTodo={updateTodo}
-
-                  
+  
                   />
-                  
                 </IonCol>
               );
             })}

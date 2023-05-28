@@ -43,18 +43,6 @@ const appPages: AppPage[] = [
     mdIcon: bookmarksSharp,
   },
   {
-    title: "Concluidas",
-    url: "/page/concluidas",
-    iosIcon: checkmarkDoneOutline,
-    mdIcon: checkmarkDoneOutline,
-  },
-  {
-    title: "Trash",
-    url: "/page/Trash",
-    iosIcon: trashOutline,
-    mdIcon: trashSharp,
-  },
-  {
     title: "Conta",
     url: "/page/conta",
     iosIcon: settingsOutline,

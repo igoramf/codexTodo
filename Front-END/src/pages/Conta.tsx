@@ -16,32 +16,37 @@ import styles from "./Conta.module.css";
 import { useContext, useEffect, useState } from "react";
 
 import { AuthContext } from "../contexts/Auth/AuthContext";
+import { useApiLogin } from "../hooks/useApiLogin";
 
 
 const Conta = () => {
-    
-    const [name, setName] = useState<string>("");
-    const [age, setAge] = useState<number>(0);
-    const [email, setEmail] = useState<string>("");
-    const [senha, setSenha] = useState<string>("");
 
     const user = useContext(AuthContext);
+    const api = useApiLogin();
+    
+    const [name, setName] = useState<string>(user.user?.nome!);
+    const [age, setAge] = useState<number>(user.user?.idade!);
+    const [email, setEmail] = useState<string>(user.user?.email!);
 
-    useEffect(() => {
-      setName(user.user?.nome!)
-    })
 
-
-
-    const data = {
-      firstName: {name},
-      email: {email},
-      senha: {senha},
-      age: {age}
+    const handleInputName = (event: any) => {
+        setName(event.target.value)
     }
 
+    const handleInputAge = (event: any) => {
+     setAge(event.target.value) 
+  }
+
+
     const updateData = () => {
-        
+        if(name == ""){
+          setName(user.user?.nome!)
+        }
+        if(!age || age > 100){
+          setAge(user.user?.idade!)
+        }
+        api.update(email, name, age)
+
     }
 
     return (
@@ -71,7 +76,7 @@ const Conta = () => {
                         value={name}
                         clearInput={true}
                         placeholder="Digite o seu nome"
-                        onIonChange={(e) => setName(e.detail.value as string)}
+                        onIonInput={handleInputName}
                         ></IonInput>
                     </IonItem>
                 </div>
@@ -82,7 +87,6 @@ const Conta = () => {
                         labelPlacement="stacked"
                         clearInput={true}
                         value={user.user?.genero}
-                        onIonChange={(e) => setName(e.detail.value as string)}
                         disabled
                         ></IonInput>
                     </IonItem>
@@ -94,8 +98,8 @@ const Conta = () => {
                   labelPlacement="stacked"
                   clearInput={true}
                   placeholder="Digite a sua idade"
-                  value={user.user?.idade}
-                  onIonChange={(e) => setAge(parseInt(e.detail.value as string))}
+                  value={age}
+                  onIonInput={handleInputAge}
                 ></IonInput>
               </IonItem>
 
@@ -108,7 +112,6 @@ const Conta = () => {
                   clearInput={true}
                   placeholder="Digite a sua senha nova"
                   value={"12334567"}
-                  onIonChange={(e) => setSenha(e.detail.value as string)}
                   type="password"
                   disabled
                 ></IonInput>
@@ -123,7 +126,7 @@ const Conta = () => {
                     labelPlacement="stacked"
                     clearInput={true}
                     placeholder="Digite seu nome"
-                    value={user.user?.email}
+                    value={email}
                     disabled
                     ></IonInput>
                 </IonItem>

@@ -20,7 +20,6 @@ import {
 import styles from "./Signup.module.css";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/Auth/AuthContext";
-import axios from "axios";
 
 const SignUp = () => {
   const [isTouched, setIsTouched] = useState(false);
@@ -140,9 +139,6 @@ const SignUp = () => {
               <IonTitle>
                 <a href="http://localhost:8100/signin">Login</a>
               </IonTitle>
-              <IonTitle>
-                <a>Sobre</a>
-              </IonTitle>
             </div>
           </div>
         </IonToolbar>
@@ -151,7 +147,7 @@ const SignUp = () => {
         <div className={styles.main}>
           <IonGrid>
             <IonRow className={styles.row}>
-              <IonCol className={styles.col}>
+              <IonCol className={`${styles.col} ${styles.img}`}>
                 <h1>
                   Realize o cadastro e utilize da melhor forma <br></br> de
                   organizar as suas tarefas do dia a dia.

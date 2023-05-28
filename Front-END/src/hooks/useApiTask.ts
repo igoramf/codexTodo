@@ -1,10 +1,14 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3001/'
+    baseURL: 'http://localhost:3001'
 });
 
+
+// CUSTOM HOOK PARA REALIZACAO DE REQUISICOES RELACIONADAS AS TAREFAS
 export const useApiTask = () => ({
+
+    // CRIA TAREFA
     create: async (nome: string, description: string, data: string, done: boolean, user: string) => {
         const response = await api.post('/tarefa' , { 
             "nome": nome,
@@ -15,6 +19,8 @@ export const useApiTask = () => ({
         });
         return response.data;
     },
+
+    // RETORNA TODOS AS TAREFAS CRIADAS POR UM USUARIO
     getUserTodo: async (id: string) => {
         const response = await api.get('/tarefa',{
             params: {
@@ -23,20 +29,35 @@ export const useApiTask = () => ({
         });
         return response.data;
     },
+
+    // DELETA UMA TAREFA
     deleteTodo: async (id: string) => {
         const response = await api.delete('/tarefa', {
             data: {_id: id}
         });
         return response.data;
     },
+
+    // PEGA TODAS AS TAREFAS DO SISTEMA
     getTodos: async () => {
         const response = await api.get('/tarefa');
         return response.data;
     },
+
+    // ATUALIZA O STATUS DA TAREFA
     updateTodo: async (id: string) => {
         await api.put('/tarefa', {
             "_id": id,
             "concluida": true
+        })
+    },
+
+    // ATUALIZA ELEMENTOS DO TODO
+    updateTodoItem: async (id: string, title: string, description: string) => {
+        await api.put('/tarefa', {
+            "_id": id,
+            "nome": title,
+            "descricao": description
         })
     }
 })

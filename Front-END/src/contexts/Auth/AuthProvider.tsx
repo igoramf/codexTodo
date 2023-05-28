@@ -3,10 +3,15 @@ import { AuthContext } from "./AuthContext"
 import { User } from "../../types/User";
 import { useApiLogin } from "../../hooks/useApiLogin";
 
+
+// PROVIDER DO AuthCONTEXT
+
 export const AuthProvider = ( {children} : {children: JSX.Element}) => {
     const [user, setUser] = useState<User | null>(null);
     const api = useApiLogin();
 
+
+    // MANTEM O USUARIO LOGADO NO SISTEMA
     useEffect(() => {
         const validateToken = async () => {
             const storageData = localStorage.getItem("authToken");
@@ -21,6 +26,8 @@ export const AuthProvider = ( {children} : {children: JSX.Element}) => {
     }, [api])
 
 
+    // REALIZA O LOGIN DO USUARIO
+
     const signin =  async (email: string, password: string) => {
         const data = await api.signin(email, password);
         
@@ -32,6 +39,7 @@ export const AuthProvider = ( {children} : {children: JSX.Element}) => {
         return false;
     }
 
+    // REALIZA O CADASTRO DO USUARIO
     const signup = async (email: string, name: string, age: number, surname: string, password: string) => {
         const data = await api.signup(email, name, age, surname, password);
         if(data.user){
@@ -41,10 +49,12 @@ export const AuthProvider = ( {children} : {children: JSX.Element}) => {
         return false
     }
 
+    // ATUALIZA UM USUARIO
     const updateUser = async (email: string, name: string, age: number) => {
         await api.update(email, name, age);
     }
 
+    // DESLOGA O USUARIO DO SISTEMA
 
     const signout = async () => {
         setUser(null)
