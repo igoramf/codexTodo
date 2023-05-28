@@ -4,7 +4,7 @@ import axios from 'axios';
 // CUSTOM HOOK PARA REALIZACAO DE REQUISICOES RELACIONADAS AO USUARIO
 
 const api = axios.create({
-    baseURL: 'hhttps://api-todolist-37w4.onrender.com/'
+    baseURL: 'https://api-todolist-37w4.onrender.com/'
 });
 
 
