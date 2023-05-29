@@ -29,14 +29,20 @@ Route.group(() => {
   // rota de login
   Route.post("login", "AuthController.login");
 
+  // rota para criar um novo usuário
+  Route.post('/users', 'UsersController.store');
+
+  // rotas crud Todos
+  Route.resource('/tasks', 'TasksController')
+
   // rotas crud Todo
   Route.group(() => {
 
-    // rotas crud Todos
-    Route.resource('/tasks', 'TasksController')
-    
     // rotas crud Users
-    Route.resource('/users', 'UsersController')
+    Route.get('/users', 'UsersController.index');
+    Route.get('/users/:id', 'UsersController.show');
+    Route.put('/users/:id', 'UsersController.update');
+    Route.delete('/users/:id', 'UsersController.destroy');
 
     // toda de deslogar
     Route.post('/logout', 'AuthController.logout')
